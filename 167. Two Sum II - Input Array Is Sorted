@@ -1,0 +1,50 @@
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+
+        //two pointer approach
+        int start=0;
+        int end=numbers.length-1;
+        
+        int ans[]=new int[2];
+        while(start<end){
+            if(numbers[start]+numbers[end]<target){
+                  start++;
+            }else if(numbers[start]+numbers[end]>target){
+                end--;
+            }else{
+                ans[0]=start+1;
+                  ans[1]=end+1;
+                  break;
+            }
+        }
+
+        return ans;
+
+//hashMap aproach
+        // Create a HashMap to store the numbers and their indices
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        // Iterate through the array to put values in the HashMap
+        for (int i = 0; i < numbers.length; i++) {
+            map.put(numbers[i], i);
+        }
+
+        // Create an array to store the result indices
+        int[] result = new int[2];
+
+        // Iterate through the array again to find the complement
+        for (int i = 0; i < numbers.length; i++) {
+            int complement = target - numbers[i];
+
+            // Check if the complement is in the HashMap
+            if (map.containsKey(complement) && map.get(complement) != i) {
+                result[0] = i + 1;  // Add 1 to convert from 0-based to 1-based index
+                result[1] = map.get(complement) + 1;  // Add 1 to convert from 0-based to 1-based index
+                break;
+            }
+        }
+
+        // Return the result indices
+        return result;
+    }
+}
